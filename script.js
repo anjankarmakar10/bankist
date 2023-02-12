@@ -31,4 +31,17 @@ document.addEventListener('keydown', function (e) {
   }
 });
 
+//Button Scrolling//
+document.querySelector('.btn--scroll-to').addEventListener('click', e => {
+  section1.scrollIntoView({ behavior: 'smooth' });
+});
 
+//Page Navigation (using event delegation)//
+
+document.querySelector('.nav__links').addEventListener('click', e => {
+  e.preventDefault();
+  if (e.target.classList.contains('nav__link')) {
+    let id = e.target.getAttribute('href');
+    document.querySelector(id).scrollIntoView({ behavior: 'smooth' });
+  }
+});
