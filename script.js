@@ -68,3 +68,28 @@ tabContainer.addEventListener('click', e => {
     .querySelector(`.operations__content--${clicked.dataset.tab}`)
     .classList.add('operations__content--active');
 });
+
+//Menu fade animation
+
+let nav = document.querySelector('nav');
+let navLinks = document.querySelectorAll('.nav__link');
+
+//This function set the opacity of an element
+function setOpaticy(item, opacity) {
+  item.style.opacity = opacity;
+}
+
+function handleNavHover(event, opacity) {
+  nav.addEventListener(event, e => {
+    let link = e.target;
+    if (link.classList.contains('nav__link')) {
+      let logo = nav.closest('.nav').querySelector('img');
+      navLinks.forEach(item => setOpaticy(item, opacity));
+      setOpaticy(logo, opacity);
+      setOpaticy(link, 1);
+    }
+  });
+}
+
+handleNavHover('mouseover', 0.5);
+handleNavHover('mouseout', 1);
