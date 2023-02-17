@@ -7,6 +7,12 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelector('.btn--show-modal');
+const section1 = document.querySelector('#section--1');
+let tabs = document.querySelectorAll('.operations__tab');
+let tabContainer = document.querySelector('.operations__tab-container');
+let tabsContents = document.querySelectorAll('.operations__content');
+let nav = document.querySelector('nav');
+let navLinks = document.querySelectorAll('.nav__link');
 
 // Modal window
 const openModal = function () {
@@ -47,10 +53,6 @@ document.querySelector('.nav__links').addEventListener('click', e => {
 });
 
 // Tabs
-let tabs = document.querySelectorAll('.operations__tab');
-let tabContainer = document.querySelector('.operations__tab-container');
-
-let tabsContents = document.querySelectorAll('.operations__content');
 
 tabContainer.addEventListener('click', e => {
   let clicked = e.target.closest('.operations__tab');
@@ -70,10 +72,6 @@ tabContainer.addEventListener('click', e => {
 });
 
 //Menu fade animation
-
-let nav = document.querySelector('nav');
-let navLinks = document.querySelectorAll('.nav__link');
-
 //This function set the opacity of an element
 function setOpaticy(item, opacity) {
   item.style.opacity = opacity;
@@ -93,3 +91,30 @@ function handleNavHover(event, opacity) {
 
 handleNavHover('mouseover', 0.5);
 handleNavHover('mouseout', 1);
+
+// Sticky Navigation
+
+//to find a element position
+let initialCoords = section1.getBoundingClientRect();
+console.log(initialCoords);
+
+window.addEventListener('scroll', e => {
+  if (window.scrollY > initialCoords.top) {
+    nav.classList.add('sticky');
+  } else nav.classList.remove('sticky');
+});
+
+// Add sticky on scroll up and remove on scroll down
+// window.onscroll = function (e) {
+//   if (this.oldScroll > this.scrollY) {
+//     nav.classList.add('sticky');
+//   } else {
+//     nav.classList.remove('sticky');
+//   }
+
+//   if (window.scrollY === 0) {
+//     nav.classList.remove('sticky');
+//   }
+
+//   this.oldScroll = this.scrollY;
+// };

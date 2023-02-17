@@ -123,11 +123,13 @@ img {
   width: 100%;
   padding: 0 6rem;
   z-index: 100;
+  transition: all 0.5s linear;
 }
 
 /* nav and stickly class at the same time */
 .nav.sticky {
-  position: fixed;
+  top: 0;
+  position: sticky;
   background-color: rgba(255, 255, 255, 0.95);
 }
 
@@ -672,5 +674,3 @@ h4 {
   font-size: 1.5rem;
   font-weight: 400;
 }
-
-
