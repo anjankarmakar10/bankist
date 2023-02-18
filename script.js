@@ -120,8 +120,6 @@ handleNavHover('mouseout', 1);
 //   this.oldScroll = this.scrollY;
 // }
 
-
-
 // Sticky Navigation : Intersection Observer API
 
 let navHeight = nav.getBoundingClientRect().height;
@@ -140,3 +138,23 @@ let headerObserver = new IntersectionObserver(
 );
 
 headerObserver.observe(header);
+
+// Reveal sections on scroll view
+
+let revealObserver = new IntersectionObserver(
+  entires => {
+    const [entry] = entires;
+    if (!entry.isIntersecting) return;
+    entry.target.classList.remove('section--hidden');
+  },
+  {
+    root: null,
+    threshold: 0.15,
+  }
+);
+
+let sections = document.querySelectorAll('.section');
+sections.forEach(section => {
+  revealObserver.observe(section);
+  section.classList.add('section--hidden');
+});
