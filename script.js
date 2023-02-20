@@ -272,3 +272,19 @@ dotContainer.addEventListener('click', e => {
     activateDot(slide);
   }
 });
+
+
+
+
+// DOM lifecycle
+
+ // this event call after the dom content loaded
+// document.addEventListener('DOMContentLoaded', e => {
+//   console.log('HTML parsed and Dom tree built');
+// });
+
+
+ // this event call after the page fully loaded
+// document.addEventListener('load', e => {
+//   console.log('page fully loaded');
+// });
