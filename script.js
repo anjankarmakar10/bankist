@@ -156,7 +156,7 @@ let revealObserver = new IntersectionObserver(
 let sections = document.querySelectorAll('.section');
 sections.forEach(section => {
   revealObserver.observe(section);
-  section.classList.add('section--hidden');
+  // section.classList.add('section--hidden');
 });
 
 // Lazy Loading Images
@@ -185,4 +185,90 @@ let imgObserver = new IntersectionObserver(
 
 imgs.forEach(img => {
   imgObserver.observe(img);
+});
+
+//Slider
+
+let slides = document.querySelectorAll('.slide');
+let btnSliderRight = document.querySelector('.slider__btn--right');
+let btnSliderLeft = document.querySelector('.slider__btn--left');
+let dotContainer = document.querySelector('.dots');
+
+let currentSlide = 0;
+let maxSlide = slides.length - 1;
+
+function createDots() {
+  slides.forEach((s, i) => {
+    dotContainer.insertAdjacentHTML(
+      'beforeend',
+      `<button class="dots__dot" data-slide="${i}"></button>`
+    );
+  });
+}
+
+function activateDot(slide) {
+  // remove the active class form all dot
+  document.querySelectorAll('.dots__dot').forEach(dot => {
+    dot.classList.remove('dots__dot--active');
+  });
+
+  // add the active class to current dot
+  let currentSlide = document.querySelector(
+    `.dots__dot[data-slide="${slide}"]`
+  );
+  currentSlide.classList.add('dots__dot--active');
+}
+
+function goToSlide(slide) {
+  slides.forEach((s, i) => {
+    s.style.transform = `translateX(${100 * (i - slide)}%)`;
+  });
+}
+
+function nextSlide() {
+  if (currentSlide === maxSlide) {
+    currentSlide = 0;
+  } else currentSlide++;
+
+  goToSlide(currentSlide);
+  activateDot(currentSlide);
+}
+
+function prevSlide() {
+  if (currentSlide === 0) {
+    currentSlide = maxSlide;
+  } else currentSlide--;
+
+  goToSlide(currentSlide);
+  activateDot(currentSlide);
+}
+
+function init() {
+  createDots();
+  activateDot(0);
+  goToSlide(0);
+}
+
+init();
+
+// Event handler
+btnSliderLeft.addEventListener('click', prevSlide);
+btnSliderRight.addEventListener('click', nextSlide);
+
+document.addEventListener('keydown', e => {
+  let key = e.key.toLowerCase();
+  key == 'arrowleft' && prevSlide();
+  key == 'arrowright' && nextSlide();
+});
+
+dotContainer.addEventListener('click', e => {
+  let element = e.target;
+
+  if (element.classList.contains('dots__dot')) {
+    // change the slide
+    let { slide } = element.dataset;
+    goToSlide(slide);
+
+    activateDot(slide);
+  }
 });
